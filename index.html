@@ -1,0 +1,33 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Word Guessing Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Word Guessing Game</h1>
+
+  <!-- where we show the blanks and filled letters -->
+  <p id="displayWord">_ _ _ _</p>
+
+  <!-- where the player types a letter -->
+  <input
+    type="text"
+    id="letter-input"
+    maxlength="1"
+    placeholder="Enter a letter"
+  >
+
+  <!-- button to submit the guess -->
+  <button id="guess-btn">Guess!</button>
+
+  <!-- feedback area: wrong guess, win/lose messages -->
+  <div id="status"></div>
+
+  <!-- link to your JavaScript stub -->
+  <script src="script.js"></script>
+</body>
+</html>

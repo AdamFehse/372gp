@@ -1,0 +1,33 @@
+/* styles.css */
+
+/* center everything on the page */
+body {
+    font-family: sans-serif;
+    text-align: center;
+    margin: 2rem;
+  }
+  
+  /* the blank/letters display */
+  #displayWord {
+    font-size: 2rem;
+    letter-spacing: 0.5rem;
+    margin: 1rem 0;
+  }
+  
+  /* input box and button styling */
+  input, button {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
+  
+  /* feedback text */
+  #status {
+    margin-top: 1rem;
+    min-height: 1.5rem; /* reserve space so page doesn’t jump */
+  }
+  
+  /* optional: color codes */
+  /* #status.error   { color: red; } */
+  /* #status.success { color: green; } */
+  
