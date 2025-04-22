@@ -20,7 +20,7 @@ function init() {
       return;
     }
     words = data.split(',');
-    selectedWord = words[Math.floor(Math.random()*1000)];
+    selectedWord = words[Math.floor(Math.random()*100)];
   });
   
   guessedLetters = [];
