@@ -56,7 +56,7 @@ function updateDisplay() {
 // === 6) See if the player has won ===
 function checkWin() {
   // TODO: if every letter in selectedWord is in guessedLetters
-  //         showStatus("You won! 🎉")
+  //         showStatus("You won!")
 }
 
 // === 7) Show messages ===
