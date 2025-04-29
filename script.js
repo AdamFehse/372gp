@@ -69,24 +69,24 @@ function onGuessClick() {
 // === 4) Check the guessed letter ===
 function processGuess(letter) {
   if (selectedWord.includes(letter)){
-    updateDisplay(letter);
+    renderBlanks();
     checkWin();
   } else {
     if (remainingLives>1){
       remainingLives-=1;
+      showStatus(`Remaining lives : ${remainingLives}`)
     } else {
       showStatus(`Game over, no lives remaining!\nWord was: ${selectedWord}`);
-      gameOver = true;
     }
   }
 }
 
+// do we need this function, previously it was just calling renderBlanks
 // === 5) Reveal correct letters ===
 function updateDisplay(letter) {
   // TODO: for each character in selectedWord:
   //         if guessedLetters includes it, show it; otherwise show "_"
   // TODO: join them with spaces and set displayWord.textContent
-  renderBlanks();
 }
 
 // === 6) See if the player has won ===
