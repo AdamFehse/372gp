@@ -71,6 +71,7 @@ function processGuess(letter) {
       showStatus(`Remaining lives : ${remainingLives}`)
     } else {
       showStatus(`Game over, no lives remaining!\nWord was: ${selectedWord}`);
+      gameOver=true;
     }
   }
 }
