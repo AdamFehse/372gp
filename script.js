@@ -14,7 +14,7 @@ let gameOver = false; // whether the game is over or not
 function init() {
   var data = "unicorn,firework,puppy,banana,cupcake,rainbow,guitar,candy,balloon,pirate,dragon,cookie,sunshine,rocket,castle,puzzle,bunny,zebra,penguin,wizard,icecream,beach,robot,magic,sparkle,clown,marshmallow,kitten,fairy,apple,popcorn,dance,jelly,crayon,whistle,glitter,party,tiger,bubbles,treasure,skate,smile,pillow,crayon,book,flower,cloud,butterfly,donut,star,moon,pencil,school,train,friend,birthday,lunch,shoe,chair,window,blanket,toy,car,truck,bus,slide,swing,park,zoo,circus,story,house,family,baby,dog,cat,bird,fish,hat,glove,sock,snow,leaf,tree,grass,milk,juice,cake,lollipop,bed,night,morning,music,game,laugh,block,paint,color,bubble";
   var words = data.split(",");
-  selectedWord = words[Math.floor(Math.random()*100)];
+  selectedWord = words[Math.floor(Math.random()*94)];
   guessedLetters = [];
   remainingLives = 6;
   renderBlanks();
@@ -55,6 +55,7 @@ function onGuessClick() {
   } else {
     showStatus("");
     guessedLetters.push(letter);
+    document.getElementById("guessed-letters").textContent+=` ${letter.toUpperCase()},`;
     processGuess(letter);
   }
 }
@@ -99,4 +100,3 @@ function showStatus(msg) {
   const statusBox = document.getElementById('status');
   statusBox.textContent = msg;
 }
-
