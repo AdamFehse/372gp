@@ -56,9 +56,11 @@ function onGuessClick() {
   if (guessedLetters.includes(letter)){
     showStatus("You have already guessed that letter!");
     return;
+  } else {
+    showStatus("");
+    guessedLetters.push(letter);
+    processGuess(letter);
   }
-  guessedLetters.push(letter);
-  processGuess(letter);
 }
 
 // === 4) Check the guessed letter ===
