@@ -24,10 +24,10 @@ body {
   /* feedback text */
   #status {
     margin-top: 1rem;
-    min-height: 1.5rem; /* reserve space so page doesn’t jump */
+    min-height: 1.5rem;
   }
   
-  /* optional: color codes */
+  /* optional colors */
   /* #status.error   { color: red; } */
   /* #status.success { color: green; } */
   
