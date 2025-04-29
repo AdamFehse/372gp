@@ -8,6 +8,7 @@ let selectedWord;     // the word to guess, e.g. "banana"
 let guessedLetters;   // array of letters the player has tried
 let remainingLives;   // how many wrong guesses left
 let file;             // csv file with words
+let gameOver = false; // whether the game is over or not
 
 // === 1) Initialization ===
 function init() {
@@ -45,6 +46,8 @@ function renderBlanks() {
 
 // === 3) Handle a guess click ===
 function onGuessClick() {
+  if (gameOver) return;
+  
   var textInputBox = document.getElementById('letter-input');
   var letter = textInputBox.value.trim();
   textInputBox.value="";
@@ -73,6 +76,7 @@ function processGuess(letter) {
       remainingLives-=1;
     } else {
       showStatus(`Game over, no lives remaining!\nWord was: ${selectedWord}`);
+      gameOver = true;
     }
   }
 }
@@ -93,6 +97,7 @@ function checkWin() {
     }
   }
   showStatus("You won!");
+  gameOver = true;
   return true;
 }
 
