@@ -19,7 +19,9 @@ function init() {
 
   // TODO: call renderBlanks() to draw "_ _ _ _" on screen
   // TODO: wire up the Guess button:
-  //         document.getElementById('guess-btn').addEventListener('click', onGuessClick)
+  renderBlanks();
+  document.getElementById('guess-btn').addEventListener('click', onGuessClick)
+  
 }
 
 // === 2) Draw the blanks ===
@@ -27,6 +29,18 @@ function renderBlanks() {
   // TODO: grab the <p id="displayWord"> element
   // TODO: build a string like "_ _ _ _" that matches selectedWord.length
   // TODO: set .textContent of displayWord to that string
+  const display = document.getElementById('displayWord');
+  let blanks = '';
+  for (let i = 0; i < selectedWord.length; i++){
+    const letter = selectedWord[i];
+    if (guessedLetters.includes(letter)){
+      blanks += letter + ' ';
+    } else {
+      blanks += '_ ';
+    }
+  }
+  display.textContent = blanks.trim();
+  
 }
 
 // === 3) Handle a guess click ===
@@ -66,6 +80,7 @@ function updateDisplay(letter) {
   // TODO: for each character in selectedWord:
   //         if guessedLetters includes it, show it; otherwise show "_"
   // TODO: join them with spaces and set displayWord.textContent
+  renderBlanks();
 }
 
 // === 6) See if the player has won ===
@@ -83,6 +98,7 @@ function checkWin() {
 function showStatus(msg) {
   // TODO: grab <div id="status"> and set its textContent = msg
   // TODO (optional): add CSS classes like "error" or "success" for colors
+  const statusBox = document.getElementById('status');
+  statusBox.textContent = msg;
 }
-
 
