@@ -70,13 +70,19 @@ function onGuessClick() {
 function processGuess(letter) {
   if (selectedWord.includes(letter)){
     renderBlanks();
-    checkWin();
-  } else {
-    if (remainingLives>1){
-      remainingLives-=1;
-      showStatus(`Remaining lives : ${remainingLives}`)
-    } else {
-      showStatus(`Game over, no lives remaining!\nWord was: ${selectedWord}`);
+    if(checkWin()){
+      gameOver = true;
+      document.getElementById('guess-btn').disabled = true;
+    }
+  } 
+  else{
+    remainingLives --;
+    if(remainingLives > 0){
+      showStatus(`Remaining lives: ${remainingLives}`);
+    } else{
+      showStatus(`Game Over! The word was: ${selectedWord}`);
+      gameOver = true;
+      document.getElementById("guess-btn").disabled = true;
     }
   }
 }
@@ -91,20 +97,20 @@ function updateDisplay(letter) {
 
 // === 6) See if the player has won ===
 function checkWin() {
-  for (var i=0;i<selectedWord.length;i++){
+  for (i=0;i<selectedWord.length;i++){
     if (!guessedLetters.includes(selectedWord[i])){
       return false;
     }
   }
+  // if we make it here the letters have been guessed, game over.
   showStatus("You won!");
   gameOver = true;
+  document.getElementById("guess-btn").disabled = true;
   return true;
 }
 
 // === 7) Show messages ===
 function showStatus(msg) {
-  // TODO: grab <div id="status"> and set its textContent = msg
-  // TODO (optional): add CSS classes like "error" or "success" for colors
   const statusBox = document.getElementById('status');
   statusBox.textContent = msg;
 }
