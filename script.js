@@ -17,19 +17,12 @@ function init() {
   selectedWord = words[Math.floor(Math.random()*100)];
   guessedLetters = [];
   remainingLives = 6;
-
-  // TODO: call renderBlanks() to draw "_ _ _ _" on screen
-  // TODO: wire up the Guess button:
   renderBlanks();
-  document.getElementById('guess-btn').addEventListener('click', onGuessClick)
-  
+  document.getElementById('guess-btn').addEventListener('click', onGuessClick);
 }
 
 // === 2) Draw the blanks ===
 function renderBlanks() {
-  // TODO: grab the <p id="displayWord"> element
-  // TODO: build a string like "_ _ _ _" that matches selectedWord.length
-  // TODO: set .textContent of displayWord to that string
   const display = document.getElementById('displayWord');
   let blanks = '';
   for (let i = 0; i < selectedWord.length; i++){
@@ -103,8 +96,6 @@ function checkWin() {
 
 // === 7) Show messages ===
 function showStatus(msg) {
-  // TODO: grab <div id="status"> and set its textContent = msg
-  // TODO (optional): add CSS classes like "error" or "success" for colors
   const statusBox = document.getElementById('status');
   statusBox.textContent = msg;
 }
