@@ -147,8 +147,18 @@ function resetGame() {
 
 // Stub for hint logic
 function showHint() {
-  // TODO: pick and display one random unguessed letter
-  // this is already wired up just need to do something
+  if (gameOver) return;
+  const remaining = selectedWord
+    .split('')
+    .filter(ch => !guessedLetters.includes(ch));
+
+    if (remaining.length === 0) {
+    showStatus("No hints left!");
+    return;
+  }
+  const hintLetter = remaining[Math.floor(Math.random() * remaining.length)];
+
+  showStatus(`Hint: try "${hintLetter.toUpperCase()}"`);
 }
 
 // Stub for drawing the hangman ASCII art
