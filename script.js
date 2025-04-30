@@ -3,14 +3,13 @@
 // Wait until the page loads, then start our game
 document.addEventListener("DOMContentLoaded", init);
 
-// === Global state (empty for now) ===
-let selectedWord; // the word to guess, e.g. "banana"
+// Global states
+let selectedWord; // the word to guess, "banana"
 let guessedLetters; // array of letters the player has tried
 let remainingLives; // how many wrong guesses left
-let file; // csv file with words
 let gameOver = false; // whether the game is over or not
 
-// === 1) Initialization ===
+// Initialization 
 function init() {
   var data =
     "unicorn,firework,puppy,banana,cupcake,rainbow,guitar,candy,balloon,pirate,dragon,cookie,sunshine,rocket,castle,puzzle,bunny,zebra,penguin,wizard,icecream,beach,robot,magic,sparkle,clown,marshmallow,kitten,fairy,apple,popcorn,dance,jelly,crayon,whistle,glitter,party,tiger,bubbles,treasure,skate,smile,pillow,crayon,book,flower,cloud,butterfly,donut,star,moon,pencil,school,train,friend,birthday,lunch,shoe,chair,window,blanket,toy,car,truck,bus,slide,swing,park,zoo,circus,story,house,family,baby,dog,cat,bird,fish,hat,glove,sock,snow,leaf,tree,grass,milk,juice,cake,lollipop,bed,night,morning,music,game,laugh,block,paint,color,bubble";
@@ -22,9 +21,7 @@ function init() {
   // call renderBlanks() to draw "_ _ _ _" on screen
   renderBlanks();
 
-  // wire up the Guess button
-  // wire up the Hint button
-  // wire up the Reset button
+  // wire up the buttons
   document.getElementById("guess-btn").addEventListener("click", onGuessClick);
   document.getElementById("reset-btn").addEventListener("click", resetGame);
   document.getElementById("hint-btn").addEventListener("click", showHint);
@@ -35,6 +32,18 @@ function init() {
     if (e.key === "Enter") {
       onGuessClick();
     }
+  });
+
+  // toggle dark class on <body>
+  document.getElementById("dark-mode").addEventListener("click", () => {
+    //console.log("Dark mode button clicked");
+    document.body.classList.add("dark");
+  });
+
+  // remove it for light mode
+  document.getElementById("light-mode").addEventListener("click", () => {
+    //console.log("Light mode button clicked");
+    document.body.classList.remove("dark");
   });
 }
 
@@ -95,8 +104,7 @@ function processGuess(letter) {
   }
 }
 
-
-// See if the player has won 
+// See if the player has won
 function checkWin() {
   for (i = 0; i < selectedWord.length; i++) {
     if (!guessedLetters.includes(selectedWord[i])) {
@@ -107,6 +115,8 @@ function checkWin() {
   showStatus("You won!");
   gameOver = true;
   document.getElementById("guess-btn").disabled = true;
+  // trigger confetti effect
+  celebrateWin();
   return true;
 }
 
@@ -140,7 +150,7 @@ function resetGame() {
   // Draw the blanks
   renderBlanks();
   // drawHangman();  need to add this next
-
+  
   // Clear the input box
   document.getElementById("letter-input").value = "";
 }
@@ -149,16 +159,36 @@ function resetGame() {
 function showHint() {
   if (gameOver) return;
   const remaining = selectedWord
-    .split('')
-    .filter(ch => !guessedLetters.includes(ch));
+    .split("")
+    .filter((ch) => !guessedLetters.includes(ch));
 
-    if (remaining.length === 0) {
+  if (remaining.length === 0) {
     showStatus("No hints left!");
     return;
   }
   const hintLetter = remaining[Math.floor(Math.random() * remaining.length)];
 
   showStatus(`Hint: try "${hintLetter.toUpperCase()}"`);
+}
+
+/**
+ * Spawn a burst of "confetti" emojis
+ */
+function celebrateWin() {
+  const container = document.getElementById("game-container");
+  // create 30 little emojis at random x positions
+  for (let i = 0; i < 30; i++) {
+    const span = document.createElement("span");
+    span.textContent = "🤩";
+    span.classList.add("confetti-piece");
+    // random horizontal start 
+    span.style.left = Math.random() * 100 + "vw";
+    // random delay
+    span.style.animationDelay = Math.random() * 0.5 + "s";
+    container.appendChild(span);
+    // remove after animation
+    span.addEventListener("animationend", () => span.remove());
+  }
 }
 
 // Stub for drawing the hangman ASCII art

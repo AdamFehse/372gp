@@ -1,49 +1,40 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Word Guessing Game</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>Word Guessing Game</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Word Guessing Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <!-- group & position these at top-left -->
+      <div class="mode-switcher">
+        <button id="dark-mode">Darkenate</button>
+        <button id="light-mode">Illuminate</button>
+      </div>
 
-  <!-- where we show the blanks and filled letters -->
-  <p id="displayWord">_ _ _ _</p>
+      <h1>Word Guessing Game</h1>
+      <p id="displayWord">_ _ _ _ _</p>
+      <input id="letter-input" maxlength="1" placeholder="Enter a letter" />
+      <div class="button-row">
+        <button id="guess-btn">Guess!</button>
+        <button id="reset-btn">Reset</button>
+        <button id="hint-btn">Hint</button>
+      </div>
+      <div id="status"></div>
+      <pre id="hangman">
+      +---+
+      |   |
+          |
+          |
+          |
+          |
+     =========
+      </pre>
+    </div>
 
-  <!-- where the player types a letter -->
-  <input
-    type="text"
-    id="letter-input"
-    maxlength="1"
-    placeholder="Enter a letter"
-  >
-
-  <!-- button to submit the guess -->
-  <button id="guess-btn">Guess!</button>
-  <!-- button to reset the game -->
-  <button id="reset-btn">Reset</button>
-  <!-- button for hints -->
-  <button id="hint-btn">Hint</button>
-
-  <!-- feedback area: wrong guess, win/lose messages -->
-  <div id="status"></div>
-
-   <!-- the hangman canvas, this ascii art will be handled in the script
-    and will be removed but for now its just to show where it will go-->
-   <pre id="hangman">
-    +---+
-    |   |
-        |
-        |
-        |
-        |
- =========
-   </pre>
-
-  <!-- link to your JavaScript stub -->
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
