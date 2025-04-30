@@ -38,11 +38,8 @@ function init() {
   });
 }
 
-// === 2) Draw the blanks ===
+// Draw the blanks
 function renderBlanks() {
-  // TODO: grab the <p id="displayWord"> element
-  // TODO: build a string like "_ _ _ _" that matches selectedWord.length
-  // TODO: set .textContent of displayWord to that string
   const display = document.getElementById("displayWord");
   let blanks = "";
   for (let i = 0; i < selectedWord.length; i++) {
@@ -56,7 +53,7 @@ function renderBlanks() {
   display.textContent = blanks.trim();
 }
 
-// === 3) Handle a guess click ===
+// Handle a guess click
 function onGuessClick() {
   if (gameOver) return;
 
@@ -78,7 +75,7 @@ function onGuessClick() {
   }
 }
 
-// === 4) Check the guessed letter ===
+// Check the guessed letter
 function processGuess(letter) {
   if (selectedWord.includes(letter)) {
     renderBlanks();
@@ -98,15 +95,8 @@ function processGuess(letter) {
   }
 }
 
-// do we need this function, previously it was just calling renderBlanks
-// === 5) Reveal correct letters ===
-function updateDisplay(letter) {
-  // TODO: for each character in selectedWord:
-  //         if guessedLetters includes it, show it; otherwise show "_"
-  // TODO: join them with spaces and set displayWord.textContent
-}
 
-// === 6) See if the player has won ===
+// See if the player has won 
 function checkWin() {
   for (i = 0; i < selectedWord.length; i++) {
     if (!guessedLetters.includes(selectedWord[i])) {
@@ -120,7 +110,7 @@ function checkWin() {
   return true;
 }
 
-// === 7) Show messages ===
+// Show messages
 function showStatus(msg) {
   const statusBox = document.getElementById("status");
   statusBox.textContent = msg;
