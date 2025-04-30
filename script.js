@@ -21,12 +21,21 @@ function init() {
 
   // call renderBlanks() to draw "_ _ _ _" on screen
   renderBlanks();
+
   // wire up the Guess button
-  document.getElementById("guess-btn").addEventListener("click", onGuessClick);
-  // wire up the Reset button
-  document.getElementById("reset-btn").addEventListener("click", resetGame);
   // wire up the Hint button
+  // wire up the Reset button
+  document.getElementById("guess-btn").addEventListener("click", onGuessClick);
+  document.getElementById("reset-btn").addEventListener("click", resetGame);
   document.getElementById("hint-btn").addEventListener("click", showHint);
+
+  // Enter btn submits a guess
+  const input = document.getElementById("letter-input");
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      onGuessClick();
+    }
+  });
 }
 
 // === 2) Draw the blanks ===
@@ -159,7 +168,7 @@ function drawHangman() {
   // TODO: grab the <pre id="hangman"> element, I have added this to the HTML
   // TODO: set its textContent to hangmanStages[stageIndex]
   // We need to be bale to decide which stage of hangman to display.
-  // 
+  //
   // I have a prior ascii art I made for a python project:
   /**
    * 
