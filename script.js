@@ -153,6 +153,7 @@ function showHint() {
 }
 
 // Stub for drawing the hangman ASCII art
+// Since we  start with 6 lives, stage 0 is index 0, stage 6 is final:
 function drawHangman() {
   // TODO: determine which stage index to show based on remainingLives
   // TODO: grab the <pre id="hangman"> element, I have added this to the HTML
