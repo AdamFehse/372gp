@@ -27,7 +27,15 @@ body {
     min-height: 1.5rem;
   }
   
+<<<<<<< HEAD
   /* optional colors */
+=======
+  #guess-box {
+    border: 2px solid black;
+  }
+
+  /* optional: color codes */
+>>>>>>> 39ac7bde7e3182d842aa7bfb8a934c3e6a326c31
   /* #status.error   { color: red; } */
   /* #status.success { color: green; } */
   
