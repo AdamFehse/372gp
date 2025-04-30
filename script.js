@@ -1,58 +1,49 @@
 // script.js
 
-// Wait until the page loads, then start our game  
+// Wait until the page loads, then start our game
 document.addEventListener("DOMContentLoaded", init);
 
-// === Global state ===
-let selectedWord;     // the word to guess, e.g. "banana"
-let guessedLetters;   // array of letters the player has tried
-let remainingLives;   // how many wrong guesses left
+// === Global state (empty for now) ===
+let selectedWord; // the word to guess, e.g. "banana"
+let guessedLetters; // array of letters the player has tried
+let remainingLives; // how many wrong guesses left
+let file; // csv file with words
 let gameOver = false; // whether the game is over or not
 
 // === 1) Initialization ===
 function init() {
-  // 1. Build our word list
-  const data =
-    "unicorn,firework,puppy,banana,cupcake,rainbow,guitar,candy,balloon," +
-    "pirate,dragon,cookie,sunshine,rocket,castle,puzzle,bunny,zebra," +
-    "penguin,wizard,icecream,beach,robot,magic,sparkle,clown,marshmallow," +
-    "kitten,fairy,apple,popcorn,dance,jelly,crayon,whistle,glitter,party," +
-    "tiger,bubbles,treasure,skate,smile,pillow,book,flower,cloud,butterfly," +
-    "donut,star,moon,pencil,school,train,friend,birthday,lunch,shoe,chair," +
-    "window,blanket,toy,car,truck,bus,slide,swing,park,zoo,circus,story," +
-    "house,family,baby,dog,cat,bird,fish,hat,glove,sock,snow,leaf,tree,grass," +
-    "milk,juice,cake,lollipop,bed,night,morning,music,game,laugh,block,paint," +
-    "color,bubble";
-  const words = data.split(",");
-
-  // 2. Pick a random word
-  selectedWord = words[Math.floor(Math.random() * words.length)];
-
-  // 3. Reset game state
+  var data =
+    "unicorn,firework,puppy,banana,cupcake,rainbow,guitar,candy,balloon,pirate,dragon,cookie,sunshine,rocket,castle,puzzle,bunny,zebra,penguin,wizard,icecream,beach,robot,magic,sparkle,clown,marshmallow,kitten,fairy,apple,popcorn,dance,jelly,crayon,whistle,glitter,party,tiger,bubbles,treasure,skate,smile,pillow,crayon,book,flower,cloud,butterfly,donut,star,moon,pencil,school,train,friend,birthday,lunch,shoe,chair,window,blanket,toy,car,truck,bus,slide,swing,park,zoo,circus,story,house,family,baby,dog,cat,bird,fish,hat,glove,sock,snow,leaf,tree,grass,milk,juice,cake,lollipop,bed,night,morning,music,game,laugh,block,paint,color,bubble";
+  var words = data.split(",");
+  selectedWord = words[Math.floor(Math.random() * 100)];
   guessedLetters = [];
   remainingLives = 6;
-  gameOver = false;
 
-  // 4. Initial render
+  // call renderBlanks() to draw "_ _ _ _" on screen
   renderBlanks();
-  drawHangman();  // will show the empty gallows
-
-  // 5. Wire up buttons
+  // wire up the Guess button
   document.getElementById("guess-btn").addEventListener("click", onGuessClick);
+  // wire up the Reset button
   document.getElementById("reset-btn").addEventListener("click", resetGame);
+  // wire up the Hint button
   document.getElementById("hint-btn").addEventListener("click", showHint);
 }
 
 // === 2) Draw the blanks ===
 function renderBlanks() {
+  // TODO: grab the <p id="displayWord"> element
+  // TODO: build a string like "_ _ _ _" that matches selectedWord.length
+  // TODO: set .textContent of displayWord to that string
   const display = document.getElementById("displayWord");
   let blanks = "";
-
   for (let i = 0; i < selectedWord.length; i++) {
-    const ch = selectedWord[i];
-    blanks += guessedLetters.includes(ch) ? ch + " " : "_ ";
+    const letter = selectedWord[i];
+    if (guessedLetters.includes(letter)) {
+      blanks += letter + " ";
+    } else {
+      blanks += "_ ";
+    }
   }
-
   display.textContent = blanks.trim();
 }
 
@@ -60,26 +51,22 @@ function renderBlanks() {
 function onGuessClick() {
   if (gameOver) return;
 
-  const input = document.getElementById("letter-input");
-  let letter = input.value.trim();
-  input.value = "";
-
-  // validate
-  if (!/^[a-z]$/i.test(letter)) {
-    showStatus("Type a valid letter (A–Z)!");
+  var textInputBox = document.getElementById("letter-input");
+  var letter = textInputBox.value.trim();
+  textInputBox.value = "";
+  if (!((letter >= "a" && letter <= "z") || (letter >= "A" && letter <= "Z"))) {
+    showStatus("Type valid letter a-z!");
     return;
   }
-
   letter = letter.toLowerCase();
   if (guessedLetters.includes(letter)) {
-    showStatus("You already guessed that letter!");
+    showStatus("You have already guessed that letter!");
     return;
+  } else {
+    showStatus("");
+    guessedLetters.push(letter);
+    processGuess(letter);
   }
-
-  // record & display
-  guessedLetters.push(letter);
-  document.getElementById("guessed-letters").textContent += ` ${letter.toUpperCase()}`;
-  processGuess(letter);
 }
 
 // === 4) Check the guessed letter ===
@@ -90,10 +77,8 @@ function processGuess(letter) {
       gameOver = true;
       document.getElementById("guess-btn").disabled = true;
     }
-    showStatus(`Nice! “${letter}” is in the word.`);
   } else {
     remainingLives--;
-    drawHangman();
     if (remainingLives > 0) {
       showStatus(`Remaining lives: ${remainingLives}`);
     } else {
@@ -104,39 +89,130 @@ function processGuess(letter) {
   }
 }
 
-// === 5) Win detection ===
-function checkWin() {
-  if (selectedWord.split("").every(ch => guessedLetters.includes(ch))) {
-    showStatus("You won! 🎉");
-    gameOver = true;
-    document.getElementById("guess-btn").disabled = true;
-    return true;
-  }
-  return false;
+// do we need this function, previously it was just calling renderBlanks
+// === 5) Reveal correct letters ===
+function updateDisplay(letter) {
+  // TODO: for each character in selectedWord:
+  //         if guessedLetters includes it, show it; otherwise show "_"
+  // TODO: join them with spaces and set displayWord.textContent
 }
 
-// === 6) Show messages ===
+// === 6) See if the player has won ===
+function checkWin() {
+  for (i = 0; i < selectedWord.length; i++) {
+    if (!guessedLetters.includes(selectedWord[i])) {
+      return false;
+    }
+  }
+  // if we make it here the letters have been guessed, game over.
+  showStatus("You won!");
+  gameOver = true;
+  document.getElementById("guess-btn").disabled = true;
+  return true;
+}
+
+// === 7) Show messages ===
 function showStatus(msg) {
   const statusBox = document.getElementById("status");
   statusBox.textContent = msg;
 }
 
-// === 7) Reset the game ===
+/**
+ * Reset the game to its initial state
+ */
 function resetGame() {
+  // Clear any status text
   showStatus("");
+
+  // Re-enable the Guess button
   document.getElementById("guess-btn").disabled = false;
-  document.getElementById("guessed-letters").textContent = "";
+
+  // Reset globals
+  gameOver = false;
+  remainingLives = 6;
+  guessedLetters = [];
+
+  // Pick a new word
+  var data =
+    "unicorn,firework,puppy,banana,cupcake,rainbow,guitar,candy,balloon,pirate,dragon,cookie,sunshine,rocket,castle,puzzle,bunny,zebra,penguin,wizard,icecream,beach,robot,magic,sparkle,clown,marshmallow,kitten,fairy,apple,popcorn,dance,jelly,crayon,whistle,glitter,party,tiger,bubbles,treasure,skate,smile,pillow,crayon,book,flower,cloud,butterfly,donut,star,moon,pencil,school,train,friend,birthday,lunch,shoe,chair,window,blanket,toy,car,truck,bus,slide,swing,park,zoo,circus,story,house,family,baby,dog,cat,bird,fish,hat,glove,sock,snow,leaf,tree,grass,milk,juice,cake,lollipop,bed,night,morning,music,game,laugh,block,paint,color,bubble";
+  const words = data.split(",");
+  selectedWord = words[Math.floor(Math.random() * words.length)];
+
+  // Draw the blanks
+  renderBlanks();
+  // drawHangman();  need to add this next
+
+  // Clear the input box
   document.getElementById("letter-input").value = "";
-  init();  // restart everything
 }
 
-// === 8) Hangman ASCII art stub ===
-function drawHangman() {
-  // TODO: determine stage index from remainingLives
-  // TODO: grab <pre id="hangman"> and set its textContent accordingly
-}
-
-// === 9) Hint stub ===
+// Stub for hint logic
 function showHint() {
-  // TODO: pick one unguessed letter from selectedWord and display it
+  // TODO: pick and display one random unguessed letter
+  // this is already wired up just need to do something
+}
+
+// Stub for drawing the hangman ASCII art
+function drawHangman() {
+  // TODO: determine which stage index to show based on remainingLives
+  // TODO: grab the <pre id="hangman"> element, I have added this to the HTML
+  // TODO: set its textContent to hangmanStages[stageIndex]
+  // We need to be bale to decide which stage of hangman to display.
+  // 
+  // I have a prior ascii art I made for a python project:
+  /**
+   * 
+   * const hangmanStages = [
+` 
+   +---+
+   |   |
+       |
+       |
+       |
+       |
+=========`,`
+   +---+
+   |   |
+   O   |
+       |
+       |
+       |
+=========`,
+`   +---+
+   |   |
+   O   |
+   |   |
+       |
+       |
+=========`,
+`   +---+
+   |   |
+   O   |
+  /|   |
+       |
+       |
+=========`,
+`   +---+
+   |   |
+   O   |
+  /|\\  |
+       |
+       |
+=========`,
+`   +---+
+   |   |
+   O   |
+  /|\\  |
+  /    |
+       |
+=========`,
+`   +---+
+   |   |
+   O   |
+  /|\\  |
+  / \\  |
+       |
+=========`  
+];
+   */
 }
