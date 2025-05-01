@@ -12,6 +12,12 @@ body {
   font-size:        18pt;
 }
 
+input {
+  font-size: 20pt;
+  width: 160px;
+  text-align: center;
+}
+
 #displayWord {
   font-size: 30pt;
 }
