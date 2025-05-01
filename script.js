@@ -21,6 +21,8 @@ function init() {
   // call renderBlanks() to draw "_ _ _ _" on screen
   renderBlanks();
 
+  drawHangman();
+
   // wire up the buttons
   document.getElementById("guess-btn").addEventListener("click", onGuessClick);
   document.getElementById("reset-btn").addEventListener("click", resetGame);
@@ -78,7 +80,7 @@ function onGuessClick() {
     showStatus("You have already guessed that letter!");
     return;
   } else {
-    showStatus("");
+    showStatus(`Remaining lives: ${remainingLives}`);
     guessedLetters.push(letter);
     processGuess(letter);
   }
@@ -94,6 +96,7 @@ function processGuess(letter) {
     }
   } else {
     remainingLives--;
+    drawHangman();
     if (remainingLives > 0) {
       showStatus(`Remaining lives: ${remainingLives}`);
     } else {
@@ -150,6 +153,7 @@ function resetGame() {
   // Draw the blanks
   renderBlanks();
   // drawHangman();  need to add this next
+  drawHangman();
   
   // Clear the input box
   document.getElementById("letter-input").value = "";
@@ -200,9 +204,7 @@ function drawHangman() {
   // We need to be bale to decide which stage of hangman to display.
   //
   // I have a prior ascii art I made for a python project:
-  /**
-   * 
-   * const hangmanStages = [
+  const hangmanStages = [
 ` 
    +---+
    |   |
@@ -254,5 +256,6 @@ function drawHangman() {
        |
 =========`  
 ];
-   */
+  document.getElementById("hangman").textContent = hangmanStages[6 - remainingLives];
+   
 }
