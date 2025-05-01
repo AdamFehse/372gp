@@ -84,7 +84,16 @@ function onGuessClick() {
   } else {
     showStatus(`Remaining lives: ${remainingLives}`);
     guessedLetters.push(letter);
-    document.getElementById("guessed-letters").textContent+=`${letter.toUpperCase()},`;
+    // This part just creates a span per letter so that we can change the color per letter
+    // Red = Wrong, Green = Correct
+    const span = document.createElement("span");
+    span.textContent = `${letter.toUpperCase()}, `;
+    if (selectedWord.includes(letter)) {
+      span.style.color = "green";
+    } else {
+      span.style.color = "red";
+    }
+    document.getElementById("guessed-letters").appendChild(span);
     processGuess(letter);
   }
 }
@@ -138,6 +147,9 @@ function showStatus(msg) {
 function resetGame() {
   // Clear any status text
   showStatus("");
+  // Clears the guessed letters
+  document.getElementById("guessed-letters").textContent = "";
+  document.getElementById("guessed-letters").innerHTML = "";
 
   // Re-enable the Guess button
   document.getElementById("guess-btn").disabled = false;
