@@ -84,6 +84,7 @@ function onGuessClick() {
   } else {
     showStatus(`Remaining lives: ${remainingLives}`);
     guessedLetters.push(letter);
+    document.getElementById("guessed-letters").textContent+=`${letter.toUpperCase()},`;
     processGuess(letter);
   }
 }
