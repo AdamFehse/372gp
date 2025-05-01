@@ -30,6 +30,7 @@ function init() {
 
   // Enter btn submits a guess
   const input = document.getElementById("letter-input");
+  input.focus();
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       onGuessClick();
@@ -71,6 +72,7 @@ function onGuessClick() {
   var textInputBox = document.getElementById("letter-input");
   var letter = textInputBox.value.trim();
   textInputBox.value = "";
+  textInputBox.focus();
   if (!((letter >= "a" && letter <= "z") || (letter >= "A" && letter <= "Z"))) {
     showStatus("Type valid letter a-z!");
     return;
@@ -157,6 +159,7 @@ function resetGame() {
   
   // Clear the input box
   document.getElementById("letter-input").value = "";
+  document.getElementById("letter-input").focus();
 }
 
 // Stub for hint logic
