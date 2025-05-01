@@ -147,6 +147,7 @@ function showStatus(msg) {
 function resetGame() {
   // Clear any status text
   showStatus("");
+
   // Clears the guessed letters
   document.getElementById("guessed-letters").textContent = "";
   document.getElementById("guessed-letters").innerHTML = "";
@@ -221,15 +222,14 @@ function drawHangman() {
   //
   // I have a prior ascii art I made for a python project:
   const hangmanStages = [
-` 
-   +---+
+`   +---+
    |   |
        |
        |
        |
        |
-=========`,`
-   +---+
+=========`,
+`   +---+
    |   |
    O   |
        |
