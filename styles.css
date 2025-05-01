@@ -9,6 +9,11 @@ body {
   background-color: var(--bg);
   color:            var(--fg);
   transition:       background 0.3s, color 0.3s;
+  font-size:        18pt;
+}
+
+#displayWord {
+  font-size: 30pt;
 }
 
 /* center the three action buttons in one row */
@@ -17,6 +22,22 @@ body {
   justify-content: center;
   gap: 0.5rem;       /* space between buttons */
   margin: 0.5rem 0;  /* vertical spacing above/below */
+  button {
+    padding: 25px 40px;
+    font-size: 14pt;
+    font-weight: bold;
+  }
+}
+
+.mode-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;       /* space between buttons */
+  button {
+    padding: 10px 20px;
+    font-size: 11pt;
+    font-style: italic;
+  }
 }
 
 /* Main game container */
