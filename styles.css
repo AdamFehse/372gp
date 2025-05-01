@@ -1,3 +1,9 @@
+/*
+  styles.css
+  CSC 372, Spring 2025, Group 5 Final Project (Hangman Game)
+  Authors: Adam Fehse, Anthony Martin, Jack Williams, and Arsha Wissinger
+ */
+
 /* Define default light colors */
 :root {
   --bg: #eeeeee;  /* light‐mode page & container bg */
@@ -12,17 +18,19 @@ body {
   font-size:        18pt;
 }
 
+/* Define input text box formatting*/
 input {
   font-size: 20pt;
   width: 160px;
   text-align: center;
 }
 
+/* Define guess output formatting*/
 #displayWord {
   font-size: 30pt;
 }
 
-/* center the three action buttons in one row */
+/* Center the three action buttons in one row */
 .button-row {
   display: flex;
   justify-content: center;
@@ -35,6 +43,7 @@ input {
   }
 }
 
+/* Define light/dark mode button formatting*/
 .mode-switcher {
   display: flex;
   justify-content: center;
@@ -56,6 +65,7 @@ input {
   color:            var(--fg);
 }
 
+/* Set up margins */
 #game-container > *:not(.mode-switcher) {
   margin: 0.5rem auto;
 }
@@ -75,7 +85,7 @@ body.dark pre {
   border-color:     var(--fg);
 }
 
-/* confetti pieces */
+/* Confetti pieces upon victory */
 .confetti-piece {
   position: absolute;
   top: 0;
@@ -84,7 +94,7 @@ body.dark pre {
   animation: fall 6s ease-out forwards;
 }
 
-/* animate from top to off-screen bottom */
+/* Animate from top to off-screen bottom */
 @keyframes fall {
   to {
     transform: translateY(100vh) rotate(360deg);
